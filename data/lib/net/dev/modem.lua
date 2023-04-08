@@ -73,8 +73,8 @@ function driver.init(address, opts)
     end
 
     local mtu
-    local methods = component.methods(address)
-    if methods["maxPacketSize"] then
+    local meths = component.methods(address)
+    if meths["maxPacketSize"] then
         mtu = invoke(address, "maxPacketSize")
     else
         mtu = 8192

@@ -15,12 +15,14 @@ function lib.new(mac, name, type, mtu, methods, mt)
 	---@field mac string
 	---@field name string
 	---@field type string
+	---@field mtu number
 	---@field state boolean
 	---@field stats { packetIn: number, packetOut: number, byteIn: number, byteOut: number }
 	local iface = {
 		mac = mac,
 		name = name,
 		type = type,
+		mtu = mtu,
 		state = false,
 		stats = {packetIn = 0, packetOut = 0, byteIn = 0, byteOut = 0}
 	}
@@ -45,7 +47,7 @@ function lib.new(mac, name, type, mtu, methods, mt)
 	function iface.open(port)
 		checkArg(1, port, "number")
 		ifUp()
-		if port < 0 or port > 65535 then
+		if port ~= nil and port < 0 or port > 65535 then
 			error(iface.name .. ": bad port: " .. tostring(port))
 		end
 
@@ -57,7 +59,7 @@ function lib.new(mac, name, type, mtu, methods, mt)
 	function iface.close(port)
 		checkArg(1, port, "number", "nil")
 		ifUp()
-		if port < 0 or port > 65535 then
+		if port ~= nil and port < 0 or port > 65535 then
 			error(iface.name .. ": bad port: " .. tostring(port))
 		end
 

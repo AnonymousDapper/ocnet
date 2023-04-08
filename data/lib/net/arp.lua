@@ -2,16 +2,16 @@
 local event = require "event"
 
 local link = require "net/link"
-local pack = require "net/pack"
+local fmt = require "net/pack"
 local ip = require "net/ip"
 
 local iface = require "net/iface"
 
-local MAGIC = pack.proto.arp.magic
-local REQUEST = pack.proto.arp.request
-local RESPONSE = pack.proto.arp.response
-local FMT = pack.proto.arp.body
-local PORT = pack.proto.arp.port
+local MAGIC = fmt.proto.arp.magic
+local REQUEST = fmt.proto.arp.request
+local RESPONSE = fmt.proto.arp.response
+local FMT = fmt.proto.arp.body
+local PORT = fmt.proto.arp.port
 
 local MAC_FORMAT = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-4%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
 

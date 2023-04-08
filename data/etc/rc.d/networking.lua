@@ -2,9 +2,9 @@
 -- Network init service
 local event = require "event"
 local filesystem = require "filesystem"
-local devfs = require "devfs"
 
 local ether = require "net/layer/ether"
+local iface = require "net/iface"
 local fmt = require "net/fmt"
 local syslog = require "syslog"
 
@@ -25,7 +25,7 @@ local function modemListener(_, dstMac, srcMac, port, _, data)
 
     if not link.state then return end
 
-    if link.__ports and not link.__ports[port] then return end
+    if not link.isOpen(port) then return end
 
     link.__updateStats(true, #data)
 
@@ -43,8 +43,8 @@ local function modemListener(_, dstMac, srcMac, port, _, data)
 end
 
 function start()
-    for file in filesystem.list("/dev/net/") do
-        local link = devfs.getDevice("/dev/net/" .. file .. "/device")
+    for _,ifname in next,iface.listDevices() do
+        local link = iface.getDevice(ifname)
         links[link.mac] = link
     end
 

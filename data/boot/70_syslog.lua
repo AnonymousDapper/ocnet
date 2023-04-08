@@ -27,4 +27,6 @@ event.listen("init", function()
     if not filesystem.exists(LOG_PATH) then
         filesystem.makeDirectory(LOG_PATH)
     end
+
+    event.push("syslog", "INFO", "kernel", "system started")
 end)
